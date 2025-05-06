@@ -1,7 +1,7 @@
 import express from "express";
 import morgan from "morgan";
-import logger from "./utils/logger.utils.js";
-import { swaggerUi, swaggerSpec } from "./utils/swagger.utils.js";
+import logger from "./middlewares/logger.middleware.js";
+import { swaggerUi, swaggerSpec } from "./middlewares/swagger.middleware.js";
 
 const app = express();
 
