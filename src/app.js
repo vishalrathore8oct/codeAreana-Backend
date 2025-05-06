@@ -36,6 +36,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors());
 
+// import all routes
+import healthCheckRoutes from "./routes/healthCheck.routes.js";
+
+// use all routes
+app.use("/api/v1/health-check", healthCheckRoutes);
+
 // Default Global error handler
 app.use(errorHandler);
 

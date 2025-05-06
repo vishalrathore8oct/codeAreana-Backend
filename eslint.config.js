@@ -23,6 +23,7 @@ export default defineConfig([
     rules: {
       ...js.configs.recommended.rules,
       "prettier/prettier": "error",
+      "no-unused-vars": ["error", { argsIgnorePattern: "^_" }], // Correct syntax
     },
   },
 ]);
