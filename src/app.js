@@ -1,6 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import logger from "./utils/logger.utils.js";
+import { swaggerUi, swaggerSpec } from "./utils/swagger.utils.js";
 
 const app = express();
 
@@ -22,5 +23,8 @@ app.use(
     },
   }),
 );
+
+// Middleware to Swagger UI
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 export default app;
