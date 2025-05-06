@@ -1,0 +1,20 @@
+{
+  "name": "codeareana-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vishalrathore8oct/codeAreana-Backend.git"
+  },
+  "author": "Vishal Rathore",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vishalrathore8oct/codeAreana-Backend/issues"
+  },
+  "homepage": "https://github.com/vishalrathore8oct/codeAreana-Backend#readme"
+}
