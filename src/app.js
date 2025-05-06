@@ -2,6 +2,7 @@ import express from "express";
 import morgan from "morgan";
 import logger from "./middlewares/logger.middleware.js";
 import { swaggerUi, swaggerSpec } from "./middlewares/swagger.middleware.js";
+import { errorHandler } from "./middlewares/error.middleware.js";
 
 const app = express();
 
@@ -26,5 +27,8 @@ app.use(
 
 // Middleware to Swagger UI
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+// Default Global error handler
+app.use(errorHandler);
 
 export default app;
