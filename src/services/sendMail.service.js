@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
 import Mailgen from "mailgen";
+import { ApiError } from "../utils/ApiError.js";
 
 export const sendEmail = async (options) => {
   try {
@@ -7,7 +8,7 @@ export const sendEmail = async (options) => {
       theme: "default",
       product: {
         name: "YourCodeArena",
-        link: "https://mailgen.js/",
+        link: "https://yourcodearena.com",
       },
     });
 
@@ -20,7 +21,7 @@ export const sendEmail = async (options) => {
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port: process.env.SMTP_PORT,
-      secure: process.env.SMTP_PORT == 465, // true for 465, false for other ports
+      secure: +process.env.SMTP_PORT === 465, // true for 465, false for other ports
       auth: {
         user: process.env.SMTP_USERNAME,
         pass: process.env.SMTP_PASSWORD,
@@ -40,46 +41,39 @@ export const sendEmail = async (options) => {
     console.log("✅ Email sent successfully: ", info.messageId);
   } catch (error) {
     console.error("❌ Email send failed:", error.message);
-    throw new Error("Email send failed");
+    throw new ApiError(500, "Email send failed", error);
   }
 };
 
-export const emailVerificationMailgenContent = (username, verificationUrl) => {
-  return {
-    body: {
-      name: username,
-      intro: "Welcome to our app! We're very excited to have you on board.",
-      action: {
-        instructions:
-          "To verify your email please click on the following button:",
-        button: {
-          color: "#22BC66", // Optional action button color
-          text: "Verify your email",
-          link: verificationUrl,
-        },
+export const emailVerificationMailgenContent = (username, verificationUrl) => ({
+  body: {
+    name: username,
+    intro: "Welcome to YourCodeArena! We're thrilled to have you.",
+    action: {
+      instructions:
+        "Please click the button below to verify your email address:",
+      button: {
+        color: "#22BC66",
+        text: "Verify Email",
+        link: verificationUrl,
       },
-      outro:
-        "Need help, or have questions? Just reply to this email, we'd love to help.",
     },
-  };
-};
+    outro: "Need help? Just reply to this email, we're here to help.",
+  },
+});
 
-export const forgotPasswordMailgenContent = (username, passwordResetUrl) => {
-  return {
-    body: {
-      name: username,
-      intro: "We got a request to reset the password of our account",
-      action: {
-        instructions:
-          "To reset your password click on the following button or link:",
-        button: {
-          color: "#22BC66", // Optional action button color
-          text: "Reset password",
-          link: passwordResetUrl,
-        },
+export const forgotPasswordMailgenContent = (username, passwordResetUrl) => ({
+  body: {
+    name: username,
+    intro: "We received a request to reset your password.",
+    action: {
+      instructions: "Click the button below to reset it:",
+      button: {
+        color: "#FF8C00",
+        text: "Reset Password",
+        link: passwordResetUrl,
       },
-      outro:
-        "Need help, or have questions? Just reply to this email, we'd love to help.",
     },
-  };
-};
+    outro: "If you didn't request this, just ignore this email.",
+  },
+});
