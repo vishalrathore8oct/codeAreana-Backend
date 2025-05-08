@@ -1,5 +1,6 @@
 # Ignore VS Code settings
 /.vscode
+src/generated/prisma/
 
 # Ignore dependencies and build files
 /node_modules

@@ -6,7 +6,7 @@ import prettierPlugin from "eslint-plugin-prettier";
 export default defineConfig([
   {
     files: ["**/*.{js,mjs,cjs}"],
-    ignores: ["node_modules", "dist", "build"],
+    ignores: ["node_modules", "dist", "build", "src/generated/prisma/**"],
 
     languageOptions: {
       ecmaVersion: 2022,
