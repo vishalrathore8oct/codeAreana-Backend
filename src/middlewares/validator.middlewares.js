@@ -6,7 +6,8 @@ export const validateRequest = (req, res, next) => {
 
   if (!errors.isEmpty()) {
     const formattedErrors = errors.array().map((err) => ({
-      field: err.param,
+      path: err.path,
+      value: err.value,
       message: err.msg,
     }));
 

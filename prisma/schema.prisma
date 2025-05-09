@@ -1,10 +1,18 @@
 generator client {
   provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+
+enum UserRole {
+  USER
+  ADMIN
 }
 
 model User {
@@ -25,7 +33,3 @@ model User {
   updatedAt                    DateTime  @updatedAt
 }
 
-enum UserRole {
-  USER
-  ADMIN
-}

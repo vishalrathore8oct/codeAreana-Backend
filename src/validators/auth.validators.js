@@ -6,8 +6,8 @@ export const userRegisterValidator = () => {
       .trim()
       .notEmpty()
       .withMessage("Full name is required")
-      .isLength({ min: 3, max: 15 })
-      .withMessage("Full name must be between 3 and 15 characters")
+      .isLength({ min: 5, max: 20 })
+      .withMessage("Full name must be between 5 and 20 characters")
       .matches(/^[a-zA-Z\s]+$/)
       .withMessage("Full name can only contain letters and spaces"),
 
@@ -15,8 +15,8 @@ export const userRegisterValidator = () => {
       .trim()
       .notEmpty()
       .withMessage("Username is required")
-      .isLength({ min: 3, max: 13 })
-      .withMessage("Username must be between 3 and 13 characters")
+      .isLength({ min: 5, max: 20 })
+      .withMessage("Username must be between 5 and 20 characters")
       .matches(/^[a-zA-Z0-9_]+$/)
       .withMessage(
         "Username can only contain letters, numbers, and underscores",
@@ -43,10 +43,5 @@ export const userRegisterValidator = () => {
       .withMessage("Password must contain at least one number")
       .matches(/[@$!%*?&]/)
       .withMessage("Password must contain at least one special character"),
-
-    body("avatarImage")
-      .optional()
-      .isURL()
-      .withMessage("Avatar must be a valid URL"),
   ];
 };
