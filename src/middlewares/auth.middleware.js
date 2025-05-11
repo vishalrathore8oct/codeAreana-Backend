@@ -1,9 +1,7 @@
 import jwt from "jsonwebtoken";
 
 export const isLoggedIn = (req, res, next) => {
-  const token =
-    req.cookies?.accessToken ||
-    req.header("Authorization")?.replace("Bearer ", "");
+  const token = req.cookies?.accessToken;
 
   if (!token) {
     return res

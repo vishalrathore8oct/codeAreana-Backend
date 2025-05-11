@@ -6,6 +6,7 @@ import {
   loginUser,
   logoutUser,
   getUserProfile,
+  refreshAccessToken,
 } from "../controllers/auth.controllers.js";
 import {
   userRegisterValidator,
@@ -44,5 +45,7 @@ userAuthRouter.post("/login", userLoginValidator(), validateRequest, loginUser);
 userAuthRouter.get("/logout", isLoggedIn, logoutUser);
 
 userAuthRouter.get("/user-profile", isLoggedIn, getUserProfile);
+
+userAuthRouter.post("/refresh-access-token", refreshAccessToken);
 
 export default userAuthRouter;

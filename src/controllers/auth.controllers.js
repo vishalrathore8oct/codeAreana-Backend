@@ -4,6 +4,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { prisma } from "../config/prismaClient.js";
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
+import jwt from "jsonwebtoken";
 import {
   generateAccessToken,
   generateRefreshToken,
@@ -277,6 +278,51 @@ export const getUserProfile = asyncHandler(async (req, res) => {
         isEmailVerified: user.isEmailVerified,
         profilePicture: user.avatarImage,
       },
+    }),
+  );
+});
+
+export const refreshAccessToken = asyncHandler(async (req, res) => {
+  const oldRefreshToken = req.cookies?.refreshToken;
+
+  if (!oldRefreshToken) {
+    throw new ApiError(401, "No refresh token found");
+  }
+
+  const decoded = jwt.verify(oldRefreshToken, process.env.REFRESH_TOKEN_SECRET);
+
+  const user = await prisma.user.findUnique({ where: { id: decoded.userId } });
+
+  if (!user || user.refreshToken !== oldRefreshToken) {
+    throw new ApiError(403, "Refresh token is invalid or has been expired");
+  }
+
+  const newAccessToken = generateAccessToken(user);
+  const newRefreshToken = generateRefreshToken(user);
+
+  await prisma.user.update({
+    where: { id: user.id },
+    data: { refreshToken: newRefreshToken },
+  });
+
+  res.cookie("accessToken", newAccessToken, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    maxAge: 60 * 60 * 1000, // 60 minutes
+  });
+
+  res.cookie("refreshToken", newRefreshToken, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    maxAge: 14 * 24 * 60 * 60 * 1000, // 14 days
+  });
+
+  res.status(200).json(
+    new ApiResponse(200, "Access token refreshed", {
+      accessToken: newAccessToken,
+      refreshToken: newRefreshToken,
     }),
   );
 });
