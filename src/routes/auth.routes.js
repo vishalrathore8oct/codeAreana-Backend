@@ -3,11 +3,13 @@ import {
   registerUser,
   verifyEmail,
   resendVerificationEmail,
+  loginUser,
 } from "../controllers/auth.controllers.js";
 import {
   userRegisterValidator,
   verifyEmailValidator,
   resendVerificationEmailValidator,
+  userLoginValidator,
 } from "../validators/auth.validators.js";
 import { validateRequest } from "../middlewares/validator.middlewares.js";
 
@@ -33,5 +35,7 @@ userAuthRouter.post(
   validateRequest,
   resendVerificationEmail,
 );
+
+userAuthRouter.post("/login", userLoginValidator(), validateRequest, loginUser);
 
 export default userAuthRouter;

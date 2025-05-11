@@ -160,3 +160,65 @@ export const resendVerificationEmail = asyncHandler(async (req, res) => {
     .status(200)
     .json(new ApiResponse(200, "Verification email resent successfully"));
 });
+
+export const loginUser = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+
+  const user = await prisma.user.findFirst({
+    where: {
+      email,
+    },
+  });
+
+  if (!user) {
+    throw new ApiError(400, "Invalid email or password");
+  }
+
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+
+  if (!isPasswordValid) {
+    throw new ApiError(400, "Invalid email or password");
+  }
+
+  if (!user.isEmailVerified) {
+    throw new ApiError(400, "Email not verified");
+  }
+
+  const accessToken = generateAccessToken(user);
+  const refreshToken = generateRefreshToken(user);
+
+  await prisma.user.update({
+    where: { id: user.id },
+    data: { refreshToken },
+  });
+
+  res.cookie("accessToken", accessToken, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    maxAge: 60 * 60 * 1000, // 60 minutes
+  });
+
+  res.cookie("refreshToken", refreshToken, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    maxAge: 14 * 24 * 60 * 60 * 1000, // 14 days
+  });
+
+  res.status(200).json(
+    new ApiResponse(200, "User logged in successfully", {
+      user: {
+        id: user.id,
+        fullName: user.fullName,
+        userName: user.userName,
+        email: user.email,
+        role: user.userRole,
+        isVerified: user.isVerified,
+        profilePicture: user.profilePicture,
+      },
+      accessToken,
+      refreshToken,
+    }),
+  );
+});
