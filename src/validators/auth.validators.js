@@ -1,4 +1,4 @@
-import { body } from "express-validator";
+import { body, query } from "express-validator";
 
 export const userRegisterValidator = () => {
   return [
@@ -43,5 +43,16 @@ export const userRegisterValidator = () => {
       .withMessage("Password must contain at least one number")
       .matches(/[@$!%*?&]/)
       .withMessage("Password must contain at least one special character"),
+  ];
+};
+
+export const verifyEmailValidator = () => {
+  return [
+    query("token")
+      .trim()
+      .notEmpty()
+      .withMessage("Token is required")
+      .isLength({ min: 1 })
+      .withMessage("Token must be at least 1 character"),
   ];
 };
