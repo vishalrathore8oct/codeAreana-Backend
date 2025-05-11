@@ -16,7 +16,6 @@ export const isLoggedIn = (req, res, next) => {
   if (!decodedToken) {
     return res.status(401).json({ message: "Unauthorized! Invalid token." });
   }
-  console.log("Decoded token:", decodedToken);
 
   req.user = decodedToken;
   next();

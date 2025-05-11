@@ -222,3 +222,29 @@ export const loginUser = asyncHandler(async (req, res) => {
     }),
   );
 });
+
+export const logoutUser = asyncHandler(async (req, res) => {
+  const userData = req.user;
+
+  if (!userData) {
+    throw new ApiError(401, "Unauthorized! No user data found");
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { id: userData.userId },
+  });
+
+  if (!user) {
+    throw new ApiError(404, "User not found");
+  }
+
+  await prisma.user.update({
+    where: { id: user.id },
+    data: { refreshToken: null },
+  });
+
+  res.clearCookie("accessToken");
+  res.clearCookie("refreshToken");
+
+  res.status(200).json(new ApiResponse(200, "User logged out successfully"));
+});
