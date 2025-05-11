@@ -18,3 +18,21 @@ export const isLoggedIn = (req, res, next) => {
   req.user = decodedToken;
   next();
 };
+
+export const authorizeRoles = (allowedRoles) => {
+  return (req, res, next) => {
+    if (!req.user || !req.user.userRole) {
+      return res
+        .status(401)
+        .json({ message: "Unauthorized: User not authenticated" });
+    }
+
+    const userRole = req.user.userRole;
+
+    if (!allowedRoles.includes(userRole)) {
+      return res.status(403).json({ message: "Forbidden: Access denied" });
+    }
+
+    next();
+  };
+};

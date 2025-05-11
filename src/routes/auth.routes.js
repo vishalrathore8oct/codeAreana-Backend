@@ -42,7 +42,7 @@ userAuthRouter.post(
 
 userAuthRouter.post("/login", userLoginValidator(), validateRequest, loginUser);
 
-userAuthRouter.get("/logout", isLoggedIn, logoutUser);
+userAuthRouter.post("/logout", isLoggedIn, logoutUser);
 
 userAuthRouter.get("/user-profile", isLoggedIn, getUserProfile);
 
