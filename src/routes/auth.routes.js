@@ -5,6 +5,7 @@ import {
   resendVerificationEmail,
   loginUser,
   logoutUser,
+  getUserProfile,
 } from "../controllers/auth.controllers.js";
 import {
   userRegisterValidator,
@@ -40,6 +41,8 @@ userAuthRouter.post(
 
 userAuthRouter.post("/login", userLoginValidator(), validateRequest, loginUser);
 
-userAuthRouter.post("/logout", isLoggedIn, logoutUser);
+userAuthRouter.get("/logout", isLoggedIn, logoutUser);
+
+userAuthRouter.get("/user-profile", isLoggedIn, getUserProfile);
 
 export default userAuthRouter;
