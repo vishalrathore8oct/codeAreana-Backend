@@ -119,3 +119,44 @@ export const verifyEmail = asyncHandler(async (req, res) => {
 
   res.status(200).json(new ApiResponse(200, "Email verified successfully"));
 });
+
+export const resendVerificationEmail = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+
+  const user = await prisma.user.findFirst({
+    where: {
+      email,
+      isEmailVerified: false,
+    },
+  });
+
+  if (!user) {
+    throw new ApiError(400, "User not found or already verified");
+  }
+
+  const emailVerificationToken = crypto.randomBytes(32).toString("hex");
+  const emailVerificationTokenExpiry = new Date(Date.now() + 30 * 60 * 1000); // 30 minutes
+
+  const emailVerificationUrl = `${process.env.FRONTEND_URL}/verify-email?token=${emailVerificationToken}`;
+
+  await prisma.user.update({
+    where: { id: user.id },
+    data: {
+      emailVerificationToken,
+      emailVerificationTokenExpiry,
+    },
+  });
+
+  await sendEmail({
+    toEmail: email,
+    subject: "Verify your email",
+    mailgenContent: emailVerificationMailgenContent(
+      user.userName,
+      emailVerificationUrl,
+    ),
+  });
+
+  res
+    .status(200)
+    .json(new ApiResponse(200, "Verification email resent successfully"));
+});

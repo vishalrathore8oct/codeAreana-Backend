@@ -56,3 +56,14 @@ export const verifyEmailValidator = () => {
       .withMessage("Token must be at least 1 character"),
   ];
 };
+
+export const resendVerificationEmailValidator = () => {
+  return [
+    body("email")
+      .trim()
+      .notEmpty()
+      .withMessage("Email is required")
+      .isEmail()
+      .withMessage("Invalid email format"),
+  ];
+};
