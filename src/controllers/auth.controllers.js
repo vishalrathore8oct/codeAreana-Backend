@@ -12,6 +12,7 @@ import {
 import {
   sendEmail,
   emailVerificationMailgenContent,
+  forgotPasswordMailgenContent,
 } from "../services/sendMail.service.js";
 
 export const registerUser = asyncHandler(async (req, res) => {
@@ -89,6 +90,7 @@ export const registerUser = asyncHandler(async (req, res) => {
       },
       accessToken,
       refreshToken,
+      emailVerificationToken,
     }),
   );
 });
@@ -157,9 +159,11 @@ export const resendVerificationEmail = asyncHandler(async (req, res) => {
     ),
   });
 
-  res
-    .status(200)
-    .json(new ApiResponse(200, "Verification email resent successfully"));
+  res.status(200).json(
+    new ApiResponse(200, "Verification email resent successfully", {
+      emailVerificationToken,
+    }),
+  );
 });
 
 export const loginUser = asyncHandler(async (req, res) => {
@@ -325,4 +329,75 @@ export const refreshAccessToken = asyncHandler(async (req, res) => {
       refreshToken: newRefreshToken,
     }),
   );
+});
+
+export const forgotPassword = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+
+  const user = await prisma.user.findFirst({
+    where: { email },
+  });
+
+  if (!user) {
+    throw new ApiError(404, "User with this email doesn't exist");
+  }
+
+  const passwordResetToken = crypto.randomBytes(32).toString("hex");
+  const passwordResetTokenExpiry = new Date(Date.now() + 30 * 60 * 1000); // 30 minutes
+
+  await prisma.user.update({
+    where: { id: user.id },
+    data: {
+      passwordResetToken,
+      passwordResetTokenExpiry,
+    },
+  });
+
+  const resetPasswordUrl = `${process.env.FRONTEND_URL}/reset-password?token=${passwordResetToken}`;
+
+  await sendEmail({
+    toEmail: email,
+    subject: "Reset your password",
+    mailgenContent: forgotPasswordMailgenContent(
+      user.userName,
+      resetPasswordUrl,
+    ),
+  });
+
+  res.status(200).json(
+    new ApiResponse(200, "Password reset link sent successfully", {
+      passwordResetToken,
+    }),
+  );
+});
+
+export const resetPassword = asyncHandler(async (req, res) => {
+  const { token } = req.query;
+  const { password } = req.body;
+
+  const user = await prisma.user.findFirst({
+    where: {
+      passwordResetToken: token,
+      passwordResetTokenExpiry: {
+        gte: new Date(),
+      },
+    },
+  });
+
+  if (!user) {
+    throw new ApiError(400, "Invalid or expired token");
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  await prisma.user.update({
+    where: { id: user.id },
+    data: {
+      password: hashedPassword,
+      passwordResetToken: null,
+      passwordResetTokenExpiry: null,
+    },
+  });
+
+  res.status(200).json(new ApiResponse(200, "Password reset successfully"));
 });

@@ -85,3 +85,39 @@ export const userLoginValidator = () => {
       .withMessage("Password must be at least 8 characters"),
   ];
 };
+
+export const forgotPasswordValidator = () => {
+  return [
+    body("email")
+      .trim()
+      .notEmpty()
+      .withMessage("Email is required")
+      .isEmail()
+      .withMessage("Invalid email format"),
+  ];
+};
+
+export const resetPasswordValidator = () => {
+  return [
+    query("token")
+      .trim()
+      .notEmpty()
+      .withMessage("Token is required")
+      .isLength({ min: 1 })
+      .withMessage("Token must be at least 1 character"),
+    body("password")
+      .trim()
+      .notEmpty()
+      .withMessage("Password is required")
+      .isLength({ min: 8 })
+      .withMessage("Password must be at least 8 characters")
+      .matches(/[A-Z]/)
+      .withMessage("Password must contain at least one uppercase letter")
+      .matches(/[a-z]/)
+      .withMessage("Password must contain at least one lowercase letter")
+      .matches(/[0-9]/)
+      .withMessage("Password must contain at least one number")
+      .matches(/[@$!%*?&]/)
+      .withMessage("Password must contain at least one special character"),
+  ];
+};
