@@ -39,10 +39,12 @@ app.use(cors());
 // import all routes
 import healthCheckRoutes from "./routes/healthCheck.routes.js";
 import userAuthRoutes from "./routes/auth.routes.js";
+import problemRoutes from "./routes/problem.routes.js";
 
 // use all routes
 app.use("/api/v1/health-check", healthCheckRoutes);
 app.use("/api/v1/auth", userAuthRoutes);
+app.use("/api/v1/problems", problemRoutes);
 
 // Default Global error handler
 app.use(errorHandler);
