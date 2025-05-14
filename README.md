@@ -30,3 +30,10 @@ The **CodeAreana Backend** is a Node.js-based backend application built with Exp
 - **jsonwebtoken**: Token-based authentication.
 - **nodemailer**: Email sending functionality.
 
+## Database Schema
+
+The database schema for the CodeAreana Backend is designed using Prisma and includes models for `User` and `Problem` and many more. You can view the detailed schema and relationships in the ERD linked below:
+
+### ERD Diagram
+You can view the database schema visually using the following link:  
+[View Database Schema on Earser.io](https://app.eraser.io/workspace/66aHTlBAm9UsazEB7khj?origin=share)
