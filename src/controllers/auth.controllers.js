@@ -8,7 +8,7 @@ import jwt from "jsonwebtoken";
 import {
   generateAccessToken,
   generateRefreshToken,
-} from "../utils/generateJwtTokens.js";
+} from "../utils/jwtTokens.utils.js";
 import {
   sendEmail,
   emailVerificationMailgenContent,

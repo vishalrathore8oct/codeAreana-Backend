@@ -1,12 +1,11 @@
 import jwt from "jsonwebtoken";
+import { ApiError } from "../utils/ApiError.js";
 
 export const isLoggedIn = (req, res, next) => {
-  const token = req.cookies?.accessToken;
+  let token = req.cookies?.accessToken;
 
   if (!token) {
-    return res
-      .status(401)
-      .json({ message: "Unauthorized! No token provided." });
+    throw new ApiError(401, "Unauthorized: No token provided");
   }
 
   const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
@@ -15,12 +14,18 @@ export const isLoggedIn = (req, res, next) => {
     return res.status(401).json({ message: "Unauthorized! Invalid token." });
   }
 
+  console.log("Decoded Token: ", decodedToken);
+
   req.user = decodedToken;
   next();
 };
 
 export const authorizeRoles = (allowedRoles) => {
   return (req, res, next) => {
+    console.log("User: ", req.user);
+    console.log("Allowed Roles: ", allowedRoles);
+    console.log("User Role: ", req.user.userRole);
+
     if (!req.user || !req.user.userRole) {
       return res
         .status(401)
