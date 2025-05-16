@@ -48,21 +48,15 @@ export const createProblem = asyncHandler(async (req, res) => {
 
     const finalResult = await getBatchSubmissionPolling(tokens);
 
-    console.log("finalResult: ", finalResult);
-
     for (let i = 0; i < finalResult.length; i++) {
       const submission = finalResult[i];
-
-      console.log(
-        `Submission ${i + 1} for language ${language}: for ${submission.status_id}`,
-      );
 
       if (submission.status_id !== 3) {
         return res
           .status(400)
           .json(
             new ApiError(
-              `Testcase ${i + 1} failed for languae ${language}`,
+              `Testcase ${i + 1} failed for languae ${language} for Status Id ${submission.status_id}`,
               400,
             ),
           );

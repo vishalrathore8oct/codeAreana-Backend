@@ -40,7 +40,7 @@ export const sendEmail = async (options) => {
 
     console.log("✅ Email sent successfully: ", info.messageId);
   } catch (error) {
-    console.error("❌ Email send failed:", error.message);
+    console.log("❌ Email send failed:", error.message);
     throw new ApiError(500, "Email send failed", error);
   }
 };

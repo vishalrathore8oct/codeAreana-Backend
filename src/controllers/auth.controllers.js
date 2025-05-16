@@ -84,9 +84,9 @@ export const registerUser = asyncHandler(async (req, res) => {
         fullName: user.fullName,
         userName: user.userName,
         email: user.email,
-        role: user.userRole,
-        isVerified: user.isVerified,
-        profilePicture: user.profilePicture,
+        role: user.role,
+        isVerified: user.isEmailVerified,
+        profilePicture: user.avatarImage,
       },
       accessToken,
       refreshToken,
@@ -218,9 +218,9 @@ export const loginUser = asyncHandler(async (req, res) => {
         fullName: user.fullName,
         userName: user.userName,
         email: user.email,
-        role: user.userRole,
-        isVerified: user.isVerified,
-        profilePicture: user.profilePicture,
+        role: user.role,
+        isVerified: user.isEmailVerified,
+        profilePicture: user.avatarImage,
       },
       accessToken,
       refreshToken,
@@ -268,8 +268,6 @@ export const getUserProfile = asyncHandler(async (req, res) => {
   if (!user) {
     throw new ApiError(404, "User not found");
   }
-
-  console.log(user);
 
   res.status(200).json(
     new ApiResponse(200, "User profile fetched successfully", {
