@@ -178,7 +178,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/vishal/Documents/codeAreana-Backend/src/generated/prisma",
+      "value": "/home/vishalrathore/Documents/codeAreana-Backend/src/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -192,7 +192,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/vishal/Documents/codeAreana-Backend/prisma/schema.prisma",
+    "sourceFilePath": "/home/vishalrathore/Documents/codeAreana-Backend/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -206,11 +206,12 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": true,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "postgresql://neondb_owner:npg_XriZ3nUgpoV8@ep-floral-math-a4332ysg-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require"
+        "value": null
       }
     }
   },

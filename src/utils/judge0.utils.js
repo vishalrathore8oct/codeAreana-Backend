@@ -14,6 +14,9 @@ export const createBatchSubmission = async (submissions) => {
   const { data } = await axios.post(
     `${process.env.JUDGE0_BASE_URL}/submissions/batch?base64_encoded=false`,
     { submissions },
+    {
+      withCredentials: true,
+    },
   );
 
   return data;
@@ -23,6 +26,9 @@ export const getBatchSubmissionPolling = async (tokens) => {
   while (true) {
     const { data } = await axios.get(
       `${process.env.JUDGE0_BASE_URL}/submissions/batch?tokens=${tokens.join(",")}&base64_encoded=false&fields=token,stdout,stderr,status_id,language_id`,
+      {
+        withCredentials: true,
+      },
     );
 
     const allSubmissions = data.submissions;

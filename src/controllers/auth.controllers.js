@@ -63,17 +63,20 @@ export const registerUser = asyncHandler(async (req, res) => {
     data: { refreshToken },
   });
 
-  res.cookie("accessToken", accessToken, {
+  const cookieOptions = {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    path: "/api/v1",
+  };
+
+  res.cookie("accessToken", accessToken, {
+    ...cookieOptions,
     maxAge: 60 * 60 * 1000, // 60 minutes
   });
 
   res.cookie("refreshToken", refreshToken, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
+    ...cookieOptions,
     maxAge: 14 * 24 * 60 * 60 * 1000, // 14 days
   });
 
@@ -197,17 +200,20 @@ export const loginUser = asyncHandler(async (req, res) => {
     data: { refreshToken },
   });
 
-  res.cookie("accessToken", accessToken, {
+  const cookieOptions = {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    path: "/api/v1",
+  };
+
+  res.cookie("accessToken", accessToken, {
+    ...cookieOptions,
     maxAge: 60 * 60 * 1000, // 60 minutes
   });
 
   res.cookie("refreshToken", refreshToken, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
+    ...cookieOptions,
     maxAge: 14 * 24 * 60 * 60 * 1000, // 14 days
   });
 
@@ -307,17 +313,20 @@ export const refreshAccessToken = asyncHandler(async (req, res) => {
     data: { refreshToken: newRefreshToken },
   });
 
-  res.cookie("accessToken", newAccessToken, {
+  const cookieOptions = {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    path: "/api/v1",
+  };
+
+  res.cookie("accessToken", newAccessToken, {
+    ...cookieOptions,
     maxAge: 60 * 60 * 1000, // 60 minutes
   });
 
   res.cookie("refreshToken", newRefreshToken, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
+    ...cookieOptions,
     maxAge: 14 * 24 * 60 * 60 * 1000, // 14 days
   });
 

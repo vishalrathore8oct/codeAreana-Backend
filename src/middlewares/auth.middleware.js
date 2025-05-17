@@ -5,10 +5,12 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 // Middleware to check if user is logged in
 export const isLoggedIn = asyncHandler(async (req, res, next) => {
   let token = req.cookies?.accessToken;
-  console.log("AuthToken: ", token || "No token found");
-  token = token || req.headers?.authorization?.split(" ")[1];
+  console.log("Cookie: ", req);
 
   console.log("AuthToken: ", token || "No token found");
+  // token = token || req.headers?.authorization?.split(" ")[1];
+
+  // console.log("AuthToken: ", token || "No token found");
 
   if (!token) {
     throw new ApiError(401, "Unauthorized: No token provided");
@@ -20,6 +22,8 @@ export const isLoggedIn = asyncHandler(async (req, res, next) => {
     if (!decoded) {
       throw new ApiError(401, "Unauthorized: Invalid token");
     }
+
+    console.log("Decoded Token: ", decoded);
 
     req.user = decoded;
     next();

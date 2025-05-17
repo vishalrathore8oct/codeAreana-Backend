@@ -10,6 +10,6 @@ app.get("/", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🌐 Server is running on URL http://127.0.0.1:${PORT}`);
-  console.log(`📜 Swagger docs available at http://127.0.0.1:${PORT}/api-docs`);
+  console.log(`🌐 Server is running on URL http://localhost:${PORT}`);
+  console.log(`📜 Swagger docs available at http://localhost:${PORT}/api-docs`);
 });
