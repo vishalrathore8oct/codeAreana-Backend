@@ -50,10 +50,10 @@ export const createProblem = asyncHandler(async (req, res) => {
     for (let i = 0; i < finalResult.length; i++) {
       const submission = finalResult[i];
 
-      if (submission.status_id !== 3) {
+      if (submission.status.id !== 3) {
         throw new ApiError(
           400,
-          `Testcase ${i + 1} failed for languae ${language} for Status Id ${submission.status_id}`,
+          `Testcase ${i + 1} failed for languae ${language} for Status Id ${submission.status.id}`,
         );
       }
     }
@@ -158,10 +158,10 @@ export const updateProblemById = asyncHandler(async (req, res) => {
     for (let i = 0; i < finalResult.length; i++) {
       const submission = finalResult[i];
 
-      if (submission.status_id !== 3) {
+      if (submission.status.id !== 3) {
         throw new ApiError(
           400,
-          `Testcase ${i + 1} failed for languae ${language} for Status Id ${submission.status_id}`,
+          `Testcase ${i + 1} failed for languae ${language} for Status Id ${submission.status.id}`,
         );
       }
     }

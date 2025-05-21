@@ -22,13 +22,13 @@ export const createBatchSubmission = async (submissions) => {
 export const getBatchSubmissionPolling = async (tokens) => {
   while (true) {
     const { data } = await axios.get(
-      `${process.env.JUDGE0_BASE_URL}/submissions/batch?tokens=${tokens.join(",")}&base64_encoded=false&fields=token,stdout,stderr,status_id,language_id`,
+      `${process.env.JUDGE0_BASE_URL}/submissions/batch?tokens=${tokens.join(",")}&base64_encoded=false`,
     );
 
     const allSubmissions = data.submissions;
 
     const isAllCompleted = allSubmissions.every((submission) => {
-      const statusId = submission.status_id;
+      const statusId = submission.status.id;
 
       return statusId !== 1 && statusId !== 2;
     });
