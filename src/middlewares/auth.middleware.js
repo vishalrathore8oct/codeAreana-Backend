@@ -5,13 +5,16 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 // Middleware to check if user is logged in
 export const isLoggedIn = asyncHandler(async (req, res, next) => {
   let token = req.cookies?.accessToken;
-  console.log("AuthToken: ", token || "No token found");
-  token = token || req.headers?.authorization?.split(" ")[1];
-
-  console.log("AuthToken: ", token || "No token found");
+  console.log("Cookies accessToken:", token);
 
   if (!token) {
-    throw new ApiError(401, "Unauthorized: No token provided");
+    const authHeader = req.headers?.authorization;
+    if (authHeader && authHeader.startsWith("Bearer ")) {
+      token = authHeader.split(" ")[1];
+      console.log("Bearer accessToken:", token);
+    } else {
+      console.log("Bearer accessToken:", token);
+    }
   }
 
   try {
@@ -38,7 +41,7 @@ export const authorizeRoles = (allowedRoles) => {
     }
 
     if (!allowedRoles.includes(role)) {
-      throw new ApiError(403, "Forbidden: Access denied");
+      throw new ApiError(403, "Forbidden: Role Access denied");
     }
 
     next();

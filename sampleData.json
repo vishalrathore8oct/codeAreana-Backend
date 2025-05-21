@@ -3,6 +3,11 @@
   "description": "Given two numbers a and b, add them up and return the output.",
   "difficulty": "EASY",
   "tags": ["math", "operators", "addition"],
+  "hints": [
+    "Use the '+' operator to perform the addition.",
+    "Ensure input values are converted to numbers before performing the addition."
+  ],
+  "editorial": "To solve this problem, simply read the two input integers, convert them from string if needed, and add them using the '+' operator. Since the constraints are within standard integer limits, no special handling for overflow or precision is required.",
   "examples": [
     {
       "input": "3 7",

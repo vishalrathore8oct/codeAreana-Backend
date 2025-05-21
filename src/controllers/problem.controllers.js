@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
@@ -89,11 +88,3 @@ export const createProblem = asyncHandler(async (req, res) => {
     .status(201)
     .json(new ApiResponse(201, "Problem created successfully", newProblem));
 });
-
-export const getProblemById = asyncHandler(async (req, res) => {});
-
-export const updateProblemById = asyncHandler(async (req, res) => {});
-
-export const deleteProblemById = asyncHandler(async (req, res) => {});
-
-export const getAllProblems = asyncHandler(async (req, res) => {});
