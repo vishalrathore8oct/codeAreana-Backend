@@ -1,5 +1,8 @@
 import { Router } from "express";
-import { createProblem } from "../controllers/problem.controllers.js";
+import {
+  createProblem,
+  getAllProblems,
+} from "../controllers/problem.controllers.js";
 import { isLoggedIn, authorizeRoles } from "../middlewares/auth.middleware.js";
 
 const problemRouter = Router();
@@ -10,5 +13,7 @@ problemRouter.post(
   authorizeRoles(["ADMIN"]),
   createProblem,
 );
+
+problemRouter.get("/get-all-problems", isLoggedIn, getAllProblems);
 
 export default problemRouter;

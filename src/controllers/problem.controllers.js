@@ -27,7 +27,9 @@ export const createProblem = asyncHandler(async (req, res) => {
     let langageId = getJudge0LanguageId(language);
 
     if (!langageId) {
-      return res.status(400).json(new ApiError(`Language ${language}`, 400));
+      return res
+        .status(400)
+        .json(new ApiError(400, `Language ${language} is not Supported`));
     }
 
     const submissions = testcases.map(({ input, output }) => {
@@ -55,8 +57,8 @@ export const createProblem = asyncHandler(async (req, res) => {
           .status(400)
           .json(
             new ApiError(
-              `Testcase ${i + 1} failed for languae ${language} for Status Id ${submission.status_id}`,
               400,
+              `Testcase ${i + 1} failed for languae ${language} for Status Id ${submission.status_id}`,
             ),
           );
       }
@@ -81,10 +83,22 @@ export const createProblem = asyncHandler(async (req, res) => {
   });
 
   if (!newProblem) {
-    return res.status(400).json(new ApiError("Problem not created", 400));
+    return res.status(400).json(new ApiError(400, "Problem not created"));
   }
 
   res
     .status(201)
     .json(new ApiResponse(201, "Problem created successfully", newProblem));
+});
+
+export const getAllProblems = asyncHandler(async (req, res) => {
+  const problems = await prisma.problem.findMany();
+
+  if (!problems) {
+    res.status(400).json(new ApiError(400, "Problems not found from database"));
+  }
+
+  res
+    .status(200)
+    .json(new ApiResponse(200, "Problems fetched successfully", problems));
 });
