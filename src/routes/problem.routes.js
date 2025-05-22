@@ -5,6 +5,7 @@ import {
   getProblemById,
   updateProblemById,
   deleteProblemById,
+  getAllProblemsSolvedByUser,
 } from "../controllers/problem.controllers.js";
 import { isLoggedIn, authorizeRoles } from "../middlewares/auth.middleware.js";
 
@@ -33,6 +34,12 @@ problemRouter.delete(
   isLoggedIn,
   authorizeRoles(["ADMIN"]),
   deleteProblemById,
+);
+
+problemRouter.get(
+  "/get-solved-problems",
+  isLoggedIn,
+  getAllProblemsSolvedByUser,
 );
 
 export default problemRouter;

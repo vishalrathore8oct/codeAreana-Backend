@@ -216,3 +216,32 @@ export const deleteProblemById = asyncHandler(async (req, res) => {
 
   res.status(200).json(new ApiResponse(200, "Problem deleted successfully"));
 });
+
+export const getAllProblemsSolvedByUser = asyncHandler(async (req, res) => {
+  const userId = req.user.userId;
+
+  const problems = await prisma.problem.findMany({
+    where: {
+      problemSolved: {
+        some: {
+          userId: userId,
+        },
+      },
+    },
+    include: {
+      problemSolved: {
+        where: {
+          userId: userId,
+        },
+      },
+    },
+  });
+
+  if (!problems) {
+    throw new ApiError(400, "No problems found");
+  }
+
+  res
+    .status(200)
+    .json(new ApiResponse(200, "Problems fetched successfully", problems));
+});
