@@ -40,3 +40,13 @@ export const getBatchSubmissionPolling = async (tokens) => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
   }
 };
+
+export const getJudge0LanguageName = (languageId) => {
+  const languageDataForJudge0 = {
+    63: "JAVASCRIPT",
+    71: "PYTHON",
+    62: "JAVA",
+  };
+
+  return languageDataForJudge0[languageId] || null;
+};
