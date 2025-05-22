@@ -19,7 +19,7 @@ submissionRouter.get(
   getUserSubmissionsForProblem,
 );
 submissionRouter.get(
-  "get-problem-submissions-count/:problemId",
+  "/get-problem-submissions-count/:problemId",
   isLoggedIn,
   getSubmissionCountForProblem,
 );
