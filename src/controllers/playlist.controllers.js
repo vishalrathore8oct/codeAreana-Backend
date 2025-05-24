@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
@@ -126,4 +125,31 @@ export const addProblemToPlaylist = asyncHandler(async (req, res) => {
   );
 });
 
-export const removeProblemFromPlaylist = asyncHandler(async (req, res) => {});
+export const removeProblemFromPlaylist = asyncHandler(async (req, res) => {
+  const { playlistId } = req.params;
+  const { problemIds } = req.body;
+
+  if (!Array.isArray(problemIds) || problemIds.length === 0) {
+    throw new ApiError(400, "Invalid or missing problemIds");
+  }
+
+  const deletedProblems = await prisma.playlistProblem.deleteMany({
+    where: {
+      playlistId: playlistId,
+      problemId: {
+        in: problemIds,
+      },
+    },
+  });
+  if (deletedProblems.count === 0) {
+    throw new ApiError(
+      404,
+      "No problems found in the playlist with the given IDs.",
+    );
+  }
+  res.status(200).json(
+    new ApiResponse(200, "Problems removed from playlist successfully", {
+      deletedCount: deletedProblems.count,
+    }),
+  );
+});
