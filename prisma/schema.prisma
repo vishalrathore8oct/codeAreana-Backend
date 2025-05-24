@@ -38,7 +38,8 @@ model User {
 
   problems      Problem[]
   Submission    Submission[]
-  problemSolved problemSolved[]
+  problemSolved ProblemSolved[]
+  playlists     Playlist[]
 }
 
 model Problem {
@@ -60,8 +61,9 @@ model Problem {
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  Submission    Submission[]
-  problemSolved problemSolved[]
+  Submission       Submission[]
+  problemSolved    ProblemSolved[]
+  playlistProblems PlaylistProblem[]
 }
 
 model Submission {
@@ -107,7 +109,7 @@ model TestcaseResult {
   @@index([submissionId])
 }
 
-model problemSolved {
+model ProblemSolved {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -118,4 +120,32 @@ model problemSolved {
   problem   Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
 
   @@unique([userId, problemId])
+}
+
+model Playlist {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  playlistProblems PlaylistProblem[]
+
+  @@unique([name, userId])
+}
+
+model PlaylistProblem {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  playlistId String
+  playlist   Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
+  problemId  String
+  problem    Problem  @relation(fields: [problemId], references: [id], onDelete: Cascade)
+
+  @@unique([playlistId, problemId])
 }
