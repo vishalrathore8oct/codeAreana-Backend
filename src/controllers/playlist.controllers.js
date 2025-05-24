@@ -50,12 +50,40 @@ export const deletePlaylist = asyncHandler(async (req, res) => {
       id: playlistId,
     },
   });
-  res.status(200).json(new ApiResponse(200, "Playlist deleted successfully."));
+  res
+    .status(200)
+    .json(
+      new ApiResponse(200, "Playlist deleted successfully.", { playlistId }),
+    );
 });
 
 export const getAllPlaylistDetails = asyncHandler(async (req, res) => {});
 
-export const getPlaylistDetails = asyncHandler(async (req, res) => {});
+export const getPlaylistDetails = asyncHandler(async (req, res) => {
+  const { playlistId } = req.params;
+  const userId = req.user.userId;
+  const playlist = await prisma.playlist.findUnique({
+    where: {
+      id: playlistId,
+      userId,
+    },
+    include: {
+      playlistProblems: {
+        include: {
+          problem: true,
+        },
+      },
+    },
+  });
+  if (!playlist) {
+    throw new ApiError(404, "Playlist not found.");
+  }
+  res.status(200).json(
+    new ApiResponse(200, "Playlist details fetched successfully.", {
+      playlist,
+    }),
+  );
+});
 
 export const addProblemToPlaylist = asyncHandler(async (req, res) => {});
 
