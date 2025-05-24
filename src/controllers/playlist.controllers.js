@@ -33,7 +33,25 @@ export const createPlaylist = asyncHandler(async (req, res) => {
   );
 });
 
-export const deletePlaylist = asyncHandler(async (req, res) => {});
+export const deletePlaylist = asyncHandler(async (req, res) => {
+  const { playlistId } = req.params;
+  const userId = req.user.userId;
+  const playlist = await prisma.playlist.findUnique({
+    where: {
+      id: playlistId,
+      userId,
+    },
+  });
+  if (!playlist) {
+    throw new ApiError(404, "Playlist not found.");
+  }
+  await prisma.playlist.delete({
+    where: {
+      id: playlistId,
+    },
+  });
+  res.status(200).json(new ApiResponse(200, "Playlist deleted successfully."));
+});
 
 export const getAllPlaylistDetails = asyncHandler(async (req, res) => {});
 
