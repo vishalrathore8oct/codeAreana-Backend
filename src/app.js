@@ -42,6 +42,7 @@ import userAuthRoutes from "./routes/auth.routes.js";
 import problemRoutes from "./routes/problem.routes.js";
 import codeExicutionRoutes from "./routes/codeExicution.routes.js";
 import submissionRoutes from "./routes/submission.routes.js";
+import playlistRoutes from "./routes/playlist.routes.js";
 
 // use all routes
 app.use("/api/v1/health-check", healthCheckRoutes);
@@ -49,6 +50,7 @@ app.use("/api/v1/auth", userAuthRoutes);
 app.use("/api/v1/problems", problemRoutes);
 app.use("/api/v1/code-execution", codeExicutionRoutes);
 app.use("/api/v1/submissions", submissionRoutes);
+app.use("/api/v1/playlists", playlistRoutes);
 
 // Default Global error handler
 app.use(errorHandler);

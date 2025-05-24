@@ -13,19 +13,19 @@ const playlistRouter = Router();
 
 playlistRouter.post("/create-playlist", isLoggedIn, createPlaylist);
 playlistRouter.delete(
-  "/:playlistId/delete-playlist",
+  "/delete-playlist/:playlistId",
   isLoggedIn,
   deletePlaylist,
 );
 playlistRouter.get("/get-all-playlist", isLoggedIn, getAllPlaylistDetails);
-playlistRouter.get("/:playlistId/get-playlist", isLoggedIn, getPlaylistDetails);
+playlistRouter.get("/get-playlist/:playlistId", isLoggedIn, getPlaylistDetails);
 playlistRouter.post(
-  "/:playlistId/add-problem",
+  "/add-problem/:playlistId",
   isLoggedIn,
   addProblemToPlaylist,
 );
 playlistRouter.delete(
-  "/:playlistId/remove-problem",
+  "/remove-problem/:playlistId",
   isLoggedIn,
   removeProblemFromPlaylist,
 );
