@@ -57,7 +57,26 @@ export const deletePlaylist = asyncHandler(async (req, res) => {
     );
 });
 
-export const getAllPlaylistDetails = asyncHandler(async (req, res) => {});
+export const getAllPlaylistDetails = asyncHandler(async (req, res) => {
+  const userId = req.user.userId;
+  const playlists = await prisma.playlist.findMany({
+    where: {
+      userId,
+    },
+    include: {
+      playlistProblems: {
+        include: {
+          problem: true,
+        },
+      },
+    },
+  });
+  res.status(200).json(
+    new ApiResponse(200, "All playlists fetched successfully.", {
+      playlists,
+    }),
+  );
+});
 
 export const getPlaylistDetails = asyncHandler(async (req, res) => {
   const { playlistId } = req.params;
@@ -85,6 +104,26 @@ export const getPlaylistDetails = asyncHandler(async (req, res) => {
   );
 });
 
-export const addProblemToPlaylist = asyncHandler(async (req, res) => {});
+export const addProblemToPlaylist = asyncHandler(async (req, res) => {
+  const { playlistId } = req.params;
+  const { problemIds } = req.body;
+
+  if (!Array.isArray(problemIds) || problemIds.length === 0) {
+    throw new ApiError(400, "Invalid or missing problemIds");
+  }
+
+  const playlistProblems = await prisma.playlistProblem.createMany({
+    data: problemIds.map((problemId) => ({
+      playlistId: playlistId,
+      problemId: problemId,
+    })),
+  });
+
+  res.status(201).json(
+    new ApiResponse(201, "Problems added to playlist successfully", {
+      playlistProblems,
+    }),
+  );
+});
 
 export const removeProblemFromPlaylist = asyncHandler(async (req, res) => {});
