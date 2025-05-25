@@ -60,6 +60,32 @@ playlistRouter.post(
   createPlaylist,
 );
 
+/**
+ * @swagger
+ * /api/v1/playlists/delete-playlist/{playlistId}:
+ *   delete:
+ *     summary: Delete a playlist
+ *     description: Deletes a playlist by its ID.
+ *     tags:
+ *       - Playlists
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: playlistId
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         description: The playlist's unique ID.
+ *     responses:
+ *       200:
+ *         description: Playlist deleted successfully.
+ *       401:
+ *         description: Unauthorized.
+ *       404:
+ *         description: Playlist not found.
+ */
 playlistRouter.delete(
   "/delete-playlist/:playlistId",
   deletePlaylistValidator(),
