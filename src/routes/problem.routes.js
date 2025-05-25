@@ -129,6 +129,32 @@ problemRouter.post(
  */
 problemRouter.get("/get-all-problems", isLoggedIn, getAllProblems);
 
+/**
+ * @swagger
+ * /api/v1/problems/get-problem/{id}:
+ *   get:
+ *     summary: Get a problem by ID
+ *     description: Fetch a single coding problem by its unique ID.
+ *     tags:
+ *       - Problems
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         description: The problem's unique ID.
+ *     responses:
+ *       200:
+ *         description: Problem fetched successfully.
+ *       400:
+ *         description: Problem not found.
+ *       401:
+ *         description: Unauthorized.
+ */
 problemRouter.get(
   "/get-problem/:id",
   getProblemByIdValidator(),
