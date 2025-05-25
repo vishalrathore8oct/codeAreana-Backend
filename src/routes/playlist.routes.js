@@ -37,6 +37,7 @@ playlistRouter.get("/get-all-playlist", isLoggedIn, getAllPlaylistDetails);
 
 playlistRouter.get(
   "/get-playlist/:playlistId",
+
   getPlaylistDetailsValidator(),
   validateRequest,
   isLoggedIn,
