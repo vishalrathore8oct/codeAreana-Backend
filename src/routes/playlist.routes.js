@@ -9,7 +9,10 @@ import {
 } from "../controllers/playlist.controllers.js";
 import { isLoggedIn } from "../middlewares/auth.middleware.js";
 import { validateRequest } from "../middlewares/validator.middlewares.js";
-import { createPlaylistValidator } from "../validators/playlist.validators.js";
+import {
+  createPlaylistValidator,
+  deletePlaylistValidator,
+} from "../validators/playlist.validators.js";
 
 const playlistRouter = Router();
 
@@ -23,6 +26,8 @@ playlistRouter.post(
 
 playlistRouter.delete(
   "/delete-playlist/:playlistId",
+  deletePlaylistValidator(),
+  validateRequest,
   isLoggedIn,
   deletePlaylist,
 );

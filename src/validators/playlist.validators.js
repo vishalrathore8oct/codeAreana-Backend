@@ -1,4 +1,4 @@
-import { body } from "express-validator";
+import { body, param } from "express-validator";
 
 export const createPlaylistValidator = () => {
   return [
@@ -13,5 +13,15 @@ export const createPlaylistValidator = () => {
       .withMessage("Description is required.")
       .isLength({ min: 10 })
       .withMessage("Description must be at least 10 characters long."),
+  ];
+};
+
+export const deletePlaylistValidator = () => {
+  return [
+    param("playlistId")
+      .notEmpty()
+      .withMessage("Playlist ID is required.")
+      .isUUID()
+      .withMessage("Invalid Playlist ID format."),
   ];
 };

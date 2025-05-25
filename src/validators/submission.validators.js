@@ -5,8 +5,6 @@ export const getUserSubmissionsForProblemValidator = () => {
     param("problemId")
       .exists()
       .withMessage("Problem ID is required")
-      .isString()
-      .withMessage("Problem ID must be a string")
       .isUUID(4)
       .withMessage("Problem ID must be a valid UUID (v4)"),
   ];
@@ -16,8 +14,6 @@ export const getSubmissionCountForProblemValidator = () => {
     param("problemId")
       .exists()
       .withMessage("Problem ID is required")
-      .isString()
-      .withMessage("Problem ID must be a string")
       .isUUID(4)
       .withMessage("Problem ID must be a valid UUID (v4)"),
   ];
