@@ -13,6 +13,7 @@ import {
   createPlaylistValidator,
   deletePlaylistValidator,
   getPlaylistDetailsValidator,
+  addProblemToPlaylistValidator,
 } from "../validators/playlist.validators.js";
 
 const playlistRouter = Router();
@@ -45,6 +46,8 @@ playlistRouter.get(
 );
 playlistRouter.post(
   "/add-problem/:playlistId",
+  addProblemToPlaylistValidator(),
+  validateRequest,
   isLoggedIn,
   addProblemToPlaylist,
 );
