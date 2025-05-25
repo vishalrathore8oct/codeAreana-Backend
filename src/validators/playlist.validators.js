@@ -25,3 +25,13 @@ export const deletePlaylistValidator = () => {
       .withMessage("Invalid Playlist ID format."),
   ];
 };
+
+export const getPlaylistDetailsValidator = () => {
+  return [
+    param("playlistId")
+      .notEmpty()
+      .withMessage("Playlist ID is required.")
+      .isUUID()
+      .withMessage("Invalid Playlist ID format."),
+  ];
+};

@@ -12,6 +12,7 @@ import { validateRequest } from "../middlewares/validator.middlewares.js";
 import {
   createPlaylistValidator,
   deletePlaylistValidator,
+  getPlaylistDetailsValidator,
 } from "../validators/playlist.validators.js";
 
 const playlistRouter = Router();
@@ -31,8 +32,16 @@ playlistRouter.delete(
   isLoggedIn,
   deletePlaylist,
 );
+
 playlistRouter.get("/get-all-playlist", isLoggedIn, getAllPlaylistDetails);
-playlistRouter.get("/get-playlist/:playlistId", isLoggedIn, getPlaylistDetails);
+
+playlistRouter.get(
+  "/get-playlist/:playlistId",
+  getPlaylistDetailsValidator(),
+  validateRequest,
+  isLoggedIn,
+  getPlaylistDetails,
+);
 playlistRouter.post(
   "/add-problem/:playlistId",
   isLoggedIn,
