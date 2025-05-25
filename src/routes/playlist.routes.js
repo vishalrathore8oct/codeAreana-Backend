@@ -112,9 +112,34 @@ playlistRouter.delete(
  */
 playlistRouter.get("/get-all-playlist", isLoggedIn, getAllPlaylistDetails);
 
+/**
+ * @swagger
+ * /api/v1/playlists/get-playlist/{playlistId}:
+ *   get:
+ *     summary: Get playlist details
+ *     description: Returns details of a specific playlist, including all problems in the playlist.
+ *     tags:
+ *       - Playlists
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: playlistId
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         description: The playlist's unique ID.
+ *     responses:
+ *       200:
+ *         description: Playlist details fetched successfully.
+ *       401:
+ *         description: Unauthorized.
+ *       404:
+ *         description: Playlist not found.
+ */
 playlistRouter.get(
   "/get-playlist/:playlistId",
-
   getPlaylistDetailsValidator(),
   validateRequest,
   isLoggedIn,
