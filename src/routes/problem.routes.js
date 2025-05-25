@@ -111,6 +111,22 @@ problemRouter.post(
   createProblem,
 );
 
+/**
+ * @swagger
+ * /api/v1/problems/get-all-problems:
+ *   get:
+ *     summary: Get all coding problems
+ *     description: Returns a list of all coding problems.
+ *     tags:
+ *       - Problems
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Problems fetched successfully.
+ *       401:
+ *         description: Unauthorized.
+ */
 problemRouter.get("/get-all-problems", isLoggedIn, getAllProblems);
 
 problemRouter.get(
