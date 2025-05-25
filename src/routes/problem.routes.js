@@ -13,6 +13,7 @@ import {
   createProblemValidator,
   getProblemByIdValidator,
   deleteProblemByIdValidator,
+  updateProblemByIdValidator,
 } from "../validators/problem.validators.js";
 
 const problemRouter = Router();
@@ -38,6 +39,8 @@ problemRouter.get(
 
 problemRouter.put(
   "/update-problem/:id",
+  updateProblemByIdValidator(),
+  validateRequest,
   isLoggedIn,
   authorizeRoles(["ADMIN"]),
   updateProblemById,
