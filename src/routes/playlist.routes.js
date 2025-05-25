@@ -194,6 +194,50 @@ playlistRouter.post(
   isLoggedIn,
   addProblemToPlaylist,
 );
+
+/**
+ * @swagger
+ * /api/v1/playlists/remove-problem/{playlistId}:
+ *   delete:
+ *     summary: Remove problems from a playlist
+ *     description: Removes one or more problems from a playlist.
+ *     tags:
+ *       - Playlists
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: playlistId
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         description: The playlist's unique ID.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - problemIds
+ *             properties:
+ *               problemIds:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                   format: uuid
+ *                 example: ["383c894d-dd29-4c37-9d6b-5cd051745cb6"]
+ *     responses:
+ *       200:
+ *         description: Problems removed from playlist successfully.
+ *       400:
+ *         description: Invalid or missing problemIds.
+ *       401:
+ *         description: Unauthorized.
+ *       404:
+ *         description: No problems found in the playlist with the given IDs.
+ */
 playlistRouter.delete(
   "/remove-problem/:playlistId",
   removeProblemFromPlaylistValidator(),
