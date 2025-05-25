@@ -163,6 +163,40 @@ problemRouter.get(
   getProblemById,
 );
 
+/**
+ * @swagger
+ * /api/v1/problems/update-problem/{id}:
+ *   put:
+ *     summary: Update a problem by ID
+ *     description: Allows an admin to update an existing coding problem.
+ *     tags:
+ *       - Problems
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         description: The problem's unique ID.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Problem'
+ *     responses:
+ *       200:
+ *         description: Problem updated successfully.
+ *       400:
+ *         description: Problem not found or validation error.
+ *       401:
+ *         description: Unauthorized.
+ *       403:
+ *         description: Forbidden.
+ */
 problemRouter.put(
   "/update-problem/:id",
   updateProblemByIdValidator(),
