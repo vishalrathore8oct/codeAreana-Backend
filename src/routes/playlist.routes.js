@@ -14,6 +14,7 @@ import {
   deletePlaylistValidator,
   getPlaylistDetailsValidator,
   addProblemToPlaylistValidator,
+  removeProblemFromPlaylistValidator,
 } from "../validators/playlist.validators.js";
 
 const playlistRouter = Router();
@@ -53,6 +54,8 @@ playlistRouter.post(
 );
 playlistRouter.delete(
   "/remove-problem/:playlistId",
+  removeProblemFromPlaylistValidator(),
+  validateRequest,
   isLoggedIn,
   removeProblemFromPlaylist,
 );

@@ -51,3 +51,19 @@ export const addProblemToPlaylistValidator = () => {
       .withMessage("Each problemId must be a valid UUID."),
   ];
 };
+
+export const removeProblemFromPlaylistValidator = () => {
+  return [
+    param("playlistId")
+      .notEmpty()
+      .withMessage("Playlist ID is required.")
+      .isUUID()
+      .withMessage("Invalid Playlist ID format."),
+    body("problemIds")
+      .isArray({ min: 1 })
+      .withMessage("problemIds must be a non-empty array."),
+    body("problemIds.*")
+      .isUUID()
+      .withMessage("Each problemId must be a valid UUID."),
+  ];
+};
