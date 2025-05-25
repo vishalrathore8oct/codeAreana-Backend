@@ -206,6 +206,34 @@ problemRouter.put(
   updateProblemById,
 );
 
+/**
+ * @swagger
+ * /api/v1/problems/delete-problem/{id}:
+ *   delete:
+ *     summary: Delete a problem by ID
+ *     description: Allows an admin to delete a coding problem by its unique ID.
+ *     tags:
+ *       - Problems
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         description: The problem's unique ID.
+ *     responses:
+ *       200:
+ *         description: Problem deleted successfully.
+ *       400:
+ *         description: Problem not found.
+ *       401:
+ *         description: Unauthorized.
+ *       403:
+ *         description: Forbidden.
+ */
 problemRouter.delete(
   "/delete-problem/:id",
   deleteProblemByIdValidator(),
