@@ -1,48 +1,194 @@
-{
-  "title": "Add Two Numbers",
-  "description": "Given two numbers a and b, add them up and return the output.",
-  "difficulty": "EASY",
-  "tags": ["math", "operators", "addition"],
-  "hints": [
-    "Use the '+' operator to perform the addition.",
-    "Ensure input values are converted to numbers before performing the addition."
-  ],
-  "editorial": "To solve this problem, simply read the two input integers, convert them from string if needed, and add them using the '+' operator. Since the constraints are within standard integer limits, no special handling for overflow or precision is required.",
-  "examples": [
-    {
-      "input": "3 7",
-      "output": "10",
-      "explanation": "Adding 3 and 7 gives 10."
+[
+  {
+    "title": "Add Two Numbers",
+    "description": "Given two numbers a and b, add them up and return the output.",
+    "difficulty": "EASY",
+    "tags": ["math", "operators", "addition"],
+    "hints": [
+      "Use the '+' operator to perform the addition.",
+      "Ensure input values are converted to numbers before performing the addition."
+    ],
+    "editorial": "To solve this problem, simply read the two input integers, convert them from string if needed, and add them using the '+' operator. Since the constraints are within standard integer limits, no special handling for overflow or precision is required.",
+    "examples": [
+      {
+        "input": "3 7",
+        "output": "10",
+        "explanation": "Adding 3 and 7 gives 10."
+      },
+      {
+        "input": "-5 12",
+        "output": "7",
+        "explanation": "Adding -5 and 12 gives 7."
+      }
+    ],
+    "constraints": ["-10^9 ≤ a, b ≤ 10^9"],
+    "testcases": [
+      {
+        "input": "100 200",
+        "output": "300"
+      },
+      {
+        "input": "-500 -600",
+        "output": "-1100"
+      },
+      {
+        "input": "0 0",
+        "output": "0"
+      }
+    ],
+    "codeSnippets": {
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction addTwoNumbers(a, b) {\n    // Write your code here\n    // Return the sum of a and b\n    return a + b;\n}\n\n// Reading input from stdin (using fs to read all input)\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst [a, b] = input.split(' ').map(Number);\n\nconsole.log(addTwoNumbers(a, b));",
+      "PYTHON": "def add_two_numbers(a, b):\n    # Write your code here\n    # Return the sum of a and b\n    return a + b\n\nimport sys\ninput_line = sys.stdin.read()\na, b = map(int, input_line.split())\nprint(add_two_numbers(a, b))",
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int addTwoNumbers(int a, int b) {\n        // Write your code here\n        // Return the sum of a and b\n        return a + b;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int a = sc.nextInt();\n        int b = sc.nextInt();\n        System.out.println(addTwoNumbers(a, b));\n    }\n}"
     },
-    {
-      "input": "-5 12",
-      "output": "7",
-      "explanation": "Adding -5 and 12 gives 7."
+    "referenceSolutions": {
+      "JAVASCRIPT": "const fs = require('fs');\n\n// Reading input from stdin (using fs to read all input)\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst [a, b] = input.split(' ').map(Number);\n\nconsole.log(a + b);",
+      "PYTHON": "import sys\ninput_line = sys.stdin.read()\na, b = map(int, input_line.split())\nprint(a + b)",
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int a = sc.nextInt();\n        int b = sc.nextInt();\n        System.out.println(a + b);\n    }\n}"
     }
-  ],
-  "constraints": ["-10^9 ≤ a, b ≤ 10^9"],
-  "testcases": [
-    {
-      "input": "100 200",
-      "output": "300"
-    },
-    {
-      "input": "-500 -600",
-      "output": "-1100"
-    },
-    {
-      "input": "0 0",
-      "output": "0"
-    }
-  ],
-  "codeSnippets": {
-    "JAVASCRIPT": "const fs = require('fs');\n\nfunction addTwoNumbers(a, b) {\n    // Write your code here\n    // Return the sum of a and b\n    return a + b;\n}\n\n// Reading input from stdin (using fs to read all input)\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst [a, b] = input.split(' ').map(Number);\n\nconsole.log(addTwoNumbers(a, b));",
-    "PYTHON": "def add_two_numbers(a, b):\n    # Write your code here\n    # Return the sum of a and b\n    return a + b\n\nimport sys\ninput_line = sys.stdin.read()\na, b = map(int, input_line.split())\nprint(add_two_numbers(a, b))",
-    "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int addTwoNumbers(int a, int b) {\n        // Write your code here\n        // Return the sum of a and b\n        return a + b;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int a = sc.nextInt();\n        int b = sc.nextInt();\n        System.out.println(addTwoNumbers(a, b));\n    }\n}"
   },
-  "referenceSolutions": {
-    "JAVASCRIPT": "const fs = require('fs');\n\n// Reading input from stdin (using fs to read all input)\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst [a, b] = input.split(' ').map(Number);\n\nconsole.log(a + b);",
-    "PYTHON": "import sys\ninput_line = sys.stdin.read()\na, b = map(int, input_line.split())\nprint(a + b)",
-    "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int a = sc.nextInt();\n        int b = sc.nextInt();\n        System.out.println(a + b);\n    }\n}"
+  {
+    "title": "Multiply Two Numbers",
+    "description": "Given two numbers a and b, multiply them and return the result.",
+    "difficulty": "EASY",
+    "tags": ["math", "operators", "multiplication"],
+    "hints": [
+      "Use the '*' operator to perform multiplication.",
+      "Ensure both inputs are parsed as numbers before performing the operation."
+    ],
+    "editorial": "To solve this problem, read the two input integers, convert them to numeric types if needed, and use the '*' operator to calculate the product. The operation is straightforward since it only involves basic multiplication.",
+    "examples": [
+      {
+        "input": "4 5",
+        "output": "20",
+        "explanation": "Multiplying 4 and 5 gives 20."
+      },
+      {
+        "input": "-3 6",
+        "output": "-18",
+        "explanation": "Multiplying -3 and 6 gives -18."
+      }
+    ],
+    "constraints": ["-10^6 ≤ a, b ≤ 10^6"],
+    "testcases": [
+      {
+        "input": "10 20",
+        "output": "200"
+      },
+      {
+        "input": "-100 -5",
+        "output": "500"
+      },
+      {
+        "input": "0 1000",
+        "output": "0"
+      }
+    ],
+    "codeSnippets": {
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction multiplyTwoNumbers(a, b) {\n    // Write your code here\n    // Return the product of a and b\n    return a * b;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst [a, b] = input.split(' ').map(Number);\n\nconsole.log(multiplyTwoNumbers(a, b));",
+      "PYTHON": "def multiply_two_numbers(a, b):\n    # Write your code here\n    # Return the product of a and b\n    return a * b\n\nimport sys\ninput_line = sys.stdin.read()\na, b = map(int, input_line.split())\nprint(multiply_two_numbers(a, b))",
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int multiplyTwoNumbers(int a, int b) {\n        // Write your code here\n        // Return the product of a and b\n        return a * b;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int a = sc.nextInt();\n        int b = sc.nextInt();\n        System.out.println(multiplyTwoNumbers(a, b));\n    }\n}"
+    },
+    "referenceSolutions": {
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst [a, b] = input.split(' ').map(Number);\nconsole.log(a * b);",
+      "PYTHON": "import sys\ninput_line = sys.stdin.read()\na, b = map(int, input_line.split())\nprint(a * b)",
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int a = sc.nextInt();\n        int b = sc.nextInt();\n        System.out.println(a * b);\n    }\n}"
+    }
+  },
+  {
+    "title": "Maximum of Two Numbers",
+    "description": "Given two integers a and b, return the maximum of the two.",
+    "difficulty": "EASY",
+    "tags": ["math", "comparison", "conditional"],
+    "hints": [
+      "Use a conditional operator or built-in function to compare a and b.",
+      "Ensure inputs are properly parsed as numbers before comparison."
+    ],
+    "editorial": "To solve this problem, compare the two input numbers using a conditional expression like the ternary operator or an if-else block. Return the greater of the two values. If they are equal, either value is acceptable as output.",
+    "examples": [
+      {
+        "input": "4 7",
+        "output": "7",
+        "explanation": "7 is greater than 4."
+      },
+      {
+        "input": "10 10",
+        "output": "10",
+        "explanation": "Both numbers are equal, so 10 is the output."
+      }
+    ],
+    "constraints": ["-10^9 ≤ a, b ≤ 10^9"],
+    "testcases": [
+      {
+        "input": "15 30",
+        "output": "30"
+      },
+      {
+        "input": "-100 50",
+        "output": "50"
+      },
+      {
+        "input": "0 0",
+        "output": "0"
+      }
+    ],
+    "codeSnippets": {
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction maxOfTwoNumbers(a, b) {\n    // Write your code here\n    return a > b ? a : b;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst [a, b] = input.split(' ').map(Number);\nconsole.log(maxOfTwoNumbers(a, b));",
+      "PYTHON": "def max_of_two_numbers(a, b):\n    # Write your code here\n    return a if a > b else b\n\nimport sys\ninput_line = sys.stdin.read()\na, b = map(int, input_line.split())\nprint(max_of_two_numbers(a, b))",
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int maxOfTwoNumbers(int a, int b) {\n        // Write your code here\n        return (a > b) ? a : b;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int a = sc.nextInt();\n        int b = sc.nextInt();\n        System.out.println(maxOfTwoNumbers(a, b));\n    }\n}"
+    },
+    "referenceSolutions": {
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst [a, b] = input.split(' ').map(Number);\nconsole.log(a > b ? a : b);",
+      "PYTHON": "import sys\ninput_line = sys.stdin.read()\na, b = map(int, input_line.split())\nprint(a if a > b else b)",
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int a = sc.nextInt();\n        int b = sc.nextInt();\n        System.out.println(a > b ? a : b);\n    }\n}"
+    }
+  },
+  {
+    "title": "Check Even or Odd",
+    "description": "Given an integer n, determine whether it is even or odd.",
+    "difficulty": "EASY",
+    "tags": ["math", "modulo", "conditional"],
+    "hints": [
+      "Use the modulo operator (%) to determine if a number is divisible by 2.",
+      "If n % 2 equals 0, then the number is even."
+    ],
+    "editorial": "To determine if a number is even or odd, check the remainder when it is divided by 2 using the modulo (%) operator. If the remainder is 0, the number is even; otherwise, it is odd.",
+    "examples": [
+      {
+        "input": "4",
+        "output": "Even",
+        "explanation": "4 % 2 = 0, so the number is even."
+      },
+      {
+        "input": "7",
+        "output": "Odd",
+        "explanation": "7 % 2 = 1, so the number is odd."
+      }
+    ],
+    "constraints": ["-10^9 ≤ n ≤ 10^9"],
+    "testcases": [
+      {
+        "input": "0",
+        "output": "Even"
+      },
+      {
+        "input": "-11",
+        "output": "Odd"
+      },
+      {
+        "input": "100",
+        "output": "Even"
+      }
+    ],
+    "codeSnippets": {
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction checkEvenOrOdd(n) {\n    // Write your code here\n    return n % 2 === 0 ? 'Even' : 'Odd';\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = Number(input);\nconsole.log(checkEvenOrOdd(n));",
+      "PYTHON": "def check_even_or_odd(n):\n    # Write your code here\n    return 'Even' if n % 2 == 0 else 'Odd'\n\nimport sys\nn = int(sys.stdin.read())\nprint(check_even_or_odd(n))",
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static String checkEvenOrOdd(int n) {\n        // Write your code here\n        return n % 2 == 0 ? \"Even\" : \"Odd\";\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(checkEvenOrOdd(n));\n    }\n}"
+    },
+    "referenceSolutions": {
+      "JAVASCRIPT": "const fs = require('fs');\nconst n = Number(fs.readFileSync(0, 'utf-8').trim());\nconsole.log(n % 2 === 0 ? 'Even' : 'Odd');",
+      "PYTHON": "import sys\nn = int(sys.stdin.read())\nprint('Even' if n % 2 == 0 else 'Odd')",
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n % 2 == 0 ? \"Even\" : \"Odd\");\n    }\n}"
+    }
   }
-}
+]
