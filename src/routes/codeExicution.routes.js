@@ -32,28 +32,29 @@ const codeExicutionRouter = Router();
  *               sourcCode:
  *                 type: string
  *                 description: The user's source code to execute.
- *                 example: "print(input())"
+ *                 example: "const fs = require('fs');\nconst n = Number(fs.readFileSync(0, 'utf-8').trim());\nconsole.log(n % 2 === 0 ? 'Even' : 'Odd');"
+
  *               languageId:
- *                 type: integer
+ *                 type: string
  *                 description: Judge0 language ID.
- *                 example: 71
+ *                 example: "63"
  *               stdin:
  *                 type: array
  *                 items:
  *                   type: string
  *                 description: Array of input strings for each testcase.
- *                 example: ["1 2", "3 4"]
+ *                 example: ["0", "-11", "100"]
  *               expectedOutput:
  *                 type: array
  *                 items:
  *                   type: string
  *                 description: Array of expected outputs for each testcase.
- *                 example: ["3", "7"]
+ *                 example: ["Even", "Odd", "Even"]
  *               problemId:
  *                 type: string
  *                 format: uuid
  *                 description: The ID of the problem being solved.
- *                 example: "a6521e36-2d2f-47de-8198-3f5e3dc139fd"
+ *                 example: "0c4d25b6-c6ae-4335-b0b1-346d4d871316"
  *     responses:
  *       200:
  *         description: Code executed and submission saved successfully.
