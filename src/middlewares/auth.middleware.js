@@ -36,6 +36,9 @@ export const authorizeRoles = (allowedRoles) => {
   return (req, res, next) => {
     const role = req.user?.userRole;
 
+    console.log("User role:", role);
+    console.log("Allowed roles:", allowedRoles);
+
     if (!role) {
       throw new ApiError(401, "Unauthorized: No user role found");
     }

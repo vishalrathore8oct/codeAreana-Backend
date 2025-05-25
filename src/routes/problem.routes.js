@@ -8,11 +8,15 @@ import {
   getAllProblemsSolvedByUser,
 } from "../controllers/problem.controllers.js";
 import { isLoggedIn, authorizeRoles } from "../middlewares/auth.middleware.js";
+import { validateRequest } from "../middlewares/validator.middlewares.js";
+import { createProblemValidator } from "../validators/problem.validators.js";
 
 const problemRouter = Router();
 
 problemRouter.post(
   "/create-problem",
+  createProblemValidator(),
+  validateRequest,
   isLoggedIn,
   authorizeRoles(["ADMIN"]),
   createProblem,
