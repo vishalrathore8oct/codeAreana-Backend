@@ -19,6 +19,39 @@ import {
 
 const playlistRouter = Router();
 
+/**
+ * @swagger
+ * /api/v1/playlists/create-playlist:
+ *   post:
+ *     summary: Create a new playlist
+ *     description: Allows a user to create a new playlist.
+ *     tags:
+ *       - Playlists
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - name
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 example: My Favorite Problems
+ *               description:
+ *                 type: string
+ *                 example: A playlist of my favorite coding problems.
+ *     responses:
+ *       201:
+ *         description: Playlist created successfully.
+ *       400:
+ *         description: Playlist with this name already exists.
+ *       401:
+ *         description: Unauthorized.
+ */
 playlistRouter.post(
   "/create-playlist",
   createPlaylistValidator(),
