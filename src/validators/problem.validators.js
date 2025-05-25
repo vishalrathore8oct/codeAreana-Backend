@@ -1,4 +1,4 @@
-import { body } from "express-validator";
+import { body, param } from "express-validator";
 
 export const createProblemValidator = () => {
   return [
@@ -75,5 +75,27 @@ export const createProblemValidator = () => {
       .withMessage("Reference solutions are required")
       .isObject()
       .withMessage("Reference solutions must be a valid JSON object"),
+  ];
+};
+
+export const getProblemByIdValidator = () => {
+  return [
+    param("id")
+      .trim()
+      .notEmpty()
+      .withMessage("Problem ID is required")
+      .isUUID(4)
+      .withMessage("Problem ID must be a valid UUID (v4)"),
+  ];
+};
+
+export const deleteProblemByIdValidator = () => {
+  return [
+    param("id")
+      .trim()
+      .notEmpty()
+      .withMessage("Problem ID is required")
+      .isUUID(4)
+      .withMessage("Problem ID must be a valid UUID (v4)"),
   ];
 };

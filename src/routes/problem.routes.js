@@ -9,7 +9,11 @@ import {
 } from "../controllers/problem.controllers.js";
 import { isLoggedIn, authorizeRoles } from "../middlewares/auth.middleware.js";
 import { validateRequest } from "../middlewares/validator.middlewares.js";
-import { createProblemValidator } from "../validators/problem.validators.js";
+import {
+  createProblemValidator,
+  getProblemByIdValidator,
+  deleteProblemByIdValidator,
+} from "../validators/problem.validators.js";
 
 const problemRouter = Router();
 
@@ -24,7 +28,13 @@ problemRouter.post(
 
 problemRouter.get("/get-all-problems", isLoggedIn, getAllProblems);
 
-problemRouter.get("/get-problem/:id", isLoggedIn, getProblemById);
+problemRouter.get(
+  "/get-problem/:id",
+  getProblemByIdValidator(),
+  validateRequest,
+  isLoggedIn,
+  getProblemById,
+);
 
 problemRouter.put(
   "/update-problem/:id",
@@ -35,6 +45,8 @@ problemRouter.put(
 
 problemRouter.delete(
   "/delete-problem/:id",
+  deleteProblemByIdValidator(),
+  validateRequest,
   isLoggedIn,
   authorizeRoles(["ADMIN"]),
   deleteProblemById,
