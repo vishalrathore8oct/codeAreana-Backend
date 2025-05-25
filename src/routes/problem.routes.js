@@ -243,6 +243,22 @@ problemRouter.delete(
   deleteProblemById,
 );
 
+/**
+ * @swagger
+ * /api/v1/problems/get-solved-problems:
+ *   get:
+ *     summary: Get all problems solved by the current user
+ *     description: Returns a list of all problems that the logged-in user has solved.
+ *     tags:
+ *       - Problems
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Problems fetched successfully.
+ *       401:
+ *         description: Unauthorized.
+ */
 problemRouter.get(
   "/get-solved-problems",
   isLoggedIn,
