@@ -32,6 +32,33 @@ const submissionRouter = Router();
  *         description: No submissions found for this user.
  */
 submissionRouter.get("/get-user-submissions", isLoggedIn, getUserSubmissions);
+
+/**
+ * @swagger
+ * /api/v1/submissions/get-user-problem-submissions/{problemId}:
+ *   get:
+ *     summary: Get all submissions by the current user for a specific problem
+ *     description: Returns all code submissions made by the logged-in user for the specified problem.
+ *     tags:
+ *       - Submissions
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: problemId
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         description: The problem's unique ID.
+ *     responses:
+ *       200:
+ *         description: Submissions fetched successfully.
+ *       401:
+ *         description: Unauthorized.
+ *       404:
+ *         description: No submissions found for this user.
+ */
 submissionRouter.get(
   "/get-user-problem-submissions/:problemId",
   getUserSubmissionsForProblemValidator(),
