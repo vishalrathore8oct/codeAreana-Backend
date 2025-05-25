@@ -3,7 +3,7 @@ import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { prisma } from "../config/prismaClient.js";
 
-export const getAllUserSubmissions = asyncHandler(async (req, res) => {
+export const getUserSubmissions = asyncHandler(async (req, res) => {
   const userId = req.user.id;
   const submissions = await prisma.submission.findMany({
     where: {
