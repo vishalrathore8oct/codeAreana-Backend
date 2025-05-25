@@ -39,16 +39,20 @@ const problemRouter = Router();
  *               - description
  *               - difficulty
  *               - tags
+ *               - hints
+ *               - editorial
+ *               - examples
+ *               - constraints
  *               - testcases
  *               - codeSnippets
  *               - referenceSolutions
  *             properties:
  *               title:
  *                 type: string
- *                 example: Add Two Numbers
+ *                 example: Check Even or Odd
  *               description:
  *                 type: string
- *                 example: Given two numbers a and b, add them up and return the output.
+ *                 example: Given an integer n, determine whether it is even or odd.
  *               difficulty:
  *                 type: string
  *                 enum: [EASY, MEDIUM, HARD]
@@ -57,25 +61,33 @@ const problemRouter = Router();
  *                 type: array
  *                 items:
  *                   type: string
- *                 example: ["math", "addition"]
+ *                 example: ["math", "modulo", "conditional"]
  *               hints:
  *                 type: array
  *                 items:
  *                   type: string
- *                 example: ["Use the '+' operator."]
+ *                 example:
+ *                   - Use the modulo operator (%) to determine if a number is divisible by 2.
+ *                   - If n % 2 equals 0, then the number is even.
+ *               editorial:
+ *                 type: string
+ *                 example: To determine if a number is even or odd, check the remainder when it is divided by 2 using the modulo (%) operator. If the remainder is 0, the number is even; otherwise, it is odd.
  *               examples:
  *                 type: array
  *                 items:
  *                   type: object
- *                 example: [{ "input": "3 7", "output": "10", "explanation": "Adding 3 and 7 gives 10." }]
+ *                 example:
+ *                   - input: "4"
+ *                     output: "Even"
+ *                     explanation: "4 % 2 = 0, so the number is even."
+ *                   - input: "7"
+ *                     output: "Odd"
+ *                     explanation: "7 % 2 = 1, so the number is odd."
  *               constraints:
  *                 type: array
  *                 items:
  *                   type: string
- *                 example: ["-10^9 ≤ a, b ≤ 10^9"]
- *               editorial:
- *                 type: string
- *                 example: To solve this problem, simply add the two numbers.
+ *                 example: ["-10^9 ≤ n ≤ 10^9"]
  *               testcases:
  *                 type: array
  *                 items:
@@ -85,13 +97,71 @@ const problemRouter = Router();
  *                       type: string
  *                     output:
  *                       type: string
- *                 example: [{ "input": "1 2", "output": "3" }]
+ *                 example:
+ *                   - input: "0"
+ *                     output: "Even"
+ *                   - input: "-11"
+ *                     output: "Odd"
+ *                   - input: "100"
+ *                     output: "Even"
  *               codeSnippets:
  *                 type: object
- *                 example: { "JAVASCRIPT": "function add(a, b) { return a + b; }" }
+ *                 example:
+ *                   JAVASCRIPT: |
+ *                     const fs = require('fs');
+ *
+ *                     function checkEvenOrOdd(n) {
+ *                         // Write your code here
+ *                         return n % 2 === 0 ? 'Even' : 'Odd';
+ *                     }
+ *
+ *                     const input = fs.readFileSync(0, 'utf-8').trim();
+ *                     const n = Number(input);
+ *                     console.log(checkEvenOrOdd(n));
+ *                   PYTHON: |
+ *                     def check_even_or_odd(n):
+ *                         # Write your code here
+ *                         return 'Even' if n % 2 == 0 else 'Odd'
+ *
+ *                     import sys
+ *                     n = int(sys.stdin.read())
+ *                     print(check_even_or_odd(n))
+ *                   JAVA: |
+ *                     import java.util.Scanner;
+ *
+ *                     public class Main {
+ *                         public static String checkEvenOrOdd(int n) {
+ *                             // Write your code here
+ *                             return n % 2 == 0 ? "Even" : "Odd";
+ *                         }
+ *
+ *                         public static void main(String[] args) {
+ *                             Scanner sc = new Scanner(System.in);
+ *                             int n = sc.nextInt();
+ *                             System.out.println(checkEvenOrOdd(n));
+ *                         }
+ *                     }
  *               referenceSolutions:
  *                 type: object
- *                 example: { "JAVASCRIPT": "console.log(a + b);" }
+ *                 example:
+ *                   JAVASCRIPT: |
+ *                     const fs = require('fs');
+ *                     const n = Number(fs.readFileSync(0, 'utf-8').trim());
+ *                     console.log(n % 2 === 0 ? 'Even' : 'Odd');
+ *                   PYTHON: |
+ *                     import sys
+ *                     n = int(sys.stdin.read())
+ *                     print('Even' if n % 2 == 0 else 'Odd')
+ *                   JAVA: |
+ *                     import java.util.Scanner;
+ *
+ *                     public class Main {
+ *                         public static void main(String[] args) {
+ *                             Scanner sc = new Scanner(System.in);
+ *                             int n = sc.nextInt();
+ *                             System.out.println(n % 2 == 0 ? "Even" : "Odd");
+ *                         }
+ *                     }
  *     responses:
  *       201:
  *         description: Problem created successfully.
