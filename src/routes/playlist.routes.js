@@ -145,6 +145,48 @@ playlistRouter.get(
   isLoggedIn,
   getPlaylistDetails,
 );
+
+/**
+ * @swagger
+ * /api/v1/playlists/add-problem/{playlistId}:
+ *   post:
+ *     summary: Add problems to a playlist
+ *     description: Adds one or more problems to a playlist.
+ *     tags:
+ *       - Playlists
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: playlistId
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         description: The playlist's unique ID.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - problemIds
+ *             properties:
+ *               problemIds:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                   format: uuid
+ *                 example: ["383c894d-dd29-4c37-9d6b-5cd051745cb6", "a6521e36-2d2f-47de-8198-3f5e3dc139fd"]
+ *     responses:
+ *       201:
+ *         description: Problems added to playlist successfully.
+ *       400:
+ *         description: Invalid or missing problemIds.
+ *       401:
+ *         description: Unauthorized.
+ */
 playlistRouter.post(
   "/add-problem/:playlistId",
   addProblemToPlaylistValidator(),
