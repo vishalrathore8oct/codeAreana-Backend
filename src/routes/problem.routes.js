@@ -17,7 +17,6 @@ import {
 } from "../validators/problem.validators.js";
 
 const problemRouter = Router();
-
 /**
  * @swagger
  * /api/v1/problems/create-problem:
@@ -49,7 +48,7 @@ const problemRouter = Router();
  *             properties:
  *               title:
  *                 type: string
- *                 example: Check Even or Odd
+ *                 example: Check Even or Odd 1
  *               description:
  *                 type: string
  *                 example: Given an integer n, determine whether it is even or odd.
@@ -66,9 +65,7 @@ const problemRouter = Router();
  *                 type: array
  *                 items:
  *                   type: string
- *                 example:
- *                   - Use the modulo operator (%) to determine if a number is divisible by 2.
- *                   - If n % 2 equals 0, then the number is even.
+ *                 example: ["Use the modulo operator (%) to determine if a number is divisible by 2.", "If n % 2 equals 0, then the number is even."]
  *               editorial:
  *                 type: string
  *                 example: To determine if a number is even or odd, check the remainder when it is divided by 2 using the modulo (%) operator. If the remainder is 0, the number is even; otherwise, it is odd.
@@ -76,6 +73,13 @@ const problemRouter = Router();
  *                 type: array
  *                 items:
  *                   type: object
+ *                   properties:
+ *                     input:
+ *                       type: string
+ *                     output:
+ *                       type: string
+ *                     explanation:
+ *                       type: string
  *                 example:
  *                   - input: "4"
  *                     output: "Even"
@@ -106,15 +110,15 @@ const problemRouter = Router();
  *                     output: "Even"
  *               codeSnippets:
  *                 type: object
+ *                 additionalProperties:
+ *                   type: string
  *                 example:
  *                   JAVASCRIPT: |
  *                     const fs = require('fs');
- *
  *                     function checkEvenOrOdd(n) {
  *                         // Write your code here
  *                         return n % 2 === 0 ? 'Even' : 'Odd';
  *                     }
- *
  *                     const input = fs.readFileSync(0, 'utf-8').trim();
  *                     const n = Number(input);
  *                     console.log(checkEvenOrOdd(n));
@@ -122,19 +126,16 @@ const problemRouter = Router();
  *                     def check_even_or_odd(n):
  *                         # Write your code here
  *                         return 'Even' if n % 2 == 0 else 'Odd'
- *
  *                     import sys
  *                     n = int(sys.stdin.read())
  *                     print(check_even_or_odd(n))
  *                   JAVA: |
  *                     import java.util.Scanner;
- *
  *                     public class Main {
  *                         public static String checkEvenOrOdd(int n) {
  *                             // Write your code here
  *                             return n % 2 == 0 ? "Even" : "Odd";
  *                         }
- *
  *                         public static void main(String[] args) {
  *                             Scanner sc = new Scanner(System.in);
  *                             int n = sc.nextInt();
@@ -143,6 +144,8 @@ const problemRouter = Router();
  *                     }
  *               referenceSolutions:
  *                 type: object
+ *                 additionalProperties:
+ *                   type: string
  *                 example:
  *                   JAVASCRIPT: |
  *                     const fs = require('fs');
@@ -154,7 +157,6 @@ const problemRouter = Router();
  *                     print('Even' if n % 2 == 0 else 'Odd')
  *                   JAVA: |
  *                     import java.util.Scanner;
- *
  *                     public class Main {
  *                         public static void main(String[] args) {
  *                             Scanner sc = new Scanner(System.in);
@@ -256,7 +258,77 @@ problemRouter.get(
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Problem'
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *                 example: "Maximum of Two Numbers"
+ *               description:
+ *                 type: string
+ *                 example: "Given two integers a and b, return the maximum of the two."
+ *               difficulty:
+ *                 type: string
+ *                 enum: [EASY, MEDIUM, HARD]
+ *                 example: "EASY"
+ *               tags:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                 example: ["math", "comparison", "conditional"]
+ *               hints:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                 example: [
+ *                   "Use a conditional operator or built-in function to compare a and b.",
+ *                   "Ensure inputs are properly parsed as numbers before comparison."
+ *                 ]
+ *               editorial:
+ *                 type: string
+ *                 example: "To solve this problem, compare the two input numbers using a conditional expression like the ternary operator or an if-else block..."
+ *               examples:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     input:
+ *                       type: string
+ *                     output:
+ *                       type: string
+ *                     explanation:
+ *                       type: string
+ *               constraints:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                 example: ["-10^9 ≤ a, b ≤ 10^9"]
+ *               testcases:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     input:
+ *                       type: string
+ *                     output:
+ *                       type: string
+ *               codeSnippets:
+ *                 type: object
+ *                 properties:
+ *                   JAVASCRIPT:
+ *                     type: string
+ *                   PYTHON:
+ *                     type: string
+ *                   JAVA:
+ *                     type: string
+ *               referenceSolutions:
+ *                 type: object
+ *                 properties:
+ *                   JAVASCRIPT:
+ *                     type: string
+ *                   PYTHON:
+ *                     type: string
+ *                   JAVA:
+ *                     type: string
  *     responses:
  *       200:
  *         description: Problem updated successfully.
@@ -267,6 +339,7 @@ problemRouter.get(
  *       403:
  *         description: Forbidden.
  */
+
 problemRouter.put(
   "/update-problem/:id",
   updateProblemByIdValidator(),
