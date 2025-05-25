@@ -18,6 +18,90 @@ import {
 
 const problemRouter = Router();
 
+/**
+ * @swagger
+ * /api/v1/problems/create-problem:
+ *   post:
+ *     summary: Create a new coding problem
+ *     description: Allows an admin to create a new coding problem with all required details and testcases.
+ *     tags:
+ *       - Problems
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - title
+ *               - description
+ *               - difficulty
+ *               - tags
+ *               - testcases
+ *               - codeSnippets
+ *               - referenceSolutions
+ *             properties:
+ *               title:
+ *                 type: string
+ *                 example: Add Two Numbers
+ *               description:
+ *                 type: string
+ *                 example: Given two numbers a and b, add them up and return the output.
+ *               difficulty:
+ *                 type: string
+ *                 enum: [EASY, MEDIUM, HARD]
+ *                 example: EASY
+ *               tags:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                 example: ["math", "addition"]
+ *               hints:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                 example: ["Use the '+' operator."]
+ *               examples:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                 example: [{ "input": "3 7", "output": "10", "explanation": "Adding 3 and 7 gives 10." }]
+ *               constraints:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                 example: ["-10^9 ≤ a, b ≤ 10^9"]
+ *               editorial:
+ *                 type: string
+ *                 example: To solve this problem, simply add the two numbers.
+ *               testcases:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     input:
+ *                       type: string
+ *                     output:
+ *                       type: string
+ *                 example: [{ "input": "1 2", "output": "3" }]
+ *               codeSnippets:
+ *                 type: object
+ *                 example: { "JAVASCRIPT": "function add(a, b) { return a + b; }" }
+ *               referenceSolutions:
+ *                 type: object
+ *                 example: { "JAVASCRIPT": "console.log(a + b);" }
+ *     responses:
+ *       201:
+ *         description: Problem created successfully.
+ *       400:
+ *         description: Validation error or problem not created.
+ *       401:
+ *         description: Unauthorized.
+ *       403:
+ *         description: Forbidden.
+ */
 problemRouter.post(
   "/create-problem",
   createProblemValidator(),
