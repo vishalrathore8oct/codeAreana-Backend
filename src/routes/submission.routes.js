@@ -13,6 +13,24 @@ import {
 
 const submissionRouter = Router();
 
+/**
+ * @swagger
+ * /api/v1/submissions/get-user-submissions:
+ *   get:
+ *     summary: Get all submissions by the current user
+ *     description: Returns a list of all code submissions made by the logged-in user.
+ *     tags:
+ *       - Submissions
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Submissions fetched successfully.
+ *       401:
+ *         description: Unauthorized.
+ *       404:
+ *         description: No submissions found for this user.
+ */
 submissionRouter.get("/get-user-submissions", isLoggedIn, getUserSubmissions);
 submissionRouter.get(
   "/get-user-problem-submissions/:problemId",
