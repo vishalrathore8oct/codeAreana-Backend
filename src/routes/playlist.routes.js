@@ -94,6 +94,22 @@ playlistRouter.delete(
   deletePlaylist,
 );
 
+/**
+ * @swagger
+ * /api/v1/playlists/get-all-playlist:
+ *   get:
+ *     summary: Get all playlists for the current user
+ *     description: Returns all playlists created by the logged-in user, including problems in each playlist.
+ *     tags:
+ *       - Playlists
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: All playlists fetched successfully.
+ *       401:
+ *         description: Unauthorized.
+ */
 playlistRouter.get("/get-all-playlist", isLoggedIn, getAllPlaylistDetails);
 
 playlistRouter.get(
