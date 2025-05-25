@@ -66,6 +66,33 @@ submissionRouter.get(
   isLoggedIn,
   getUserSubmissionsForProblem,
 );
+
+/**
+ * @swagger
+ * /api/v1/submissions/get-problem-submissions-count/{problemId}:
+ *   get:
+ *     summary: Get the total number of submissions for a specific problem
+ *     description: Returns the count of all submissions made for the specified problem by all users.
+ *     tags:
+ *       - Submissions
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: problemId
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         description: The problem's unique ID.
+ *     responses:
+ *       200:
+ *         description: Submissions count fetched successfully.
+ *       401:
+ *         description: Unauthorized.
+ *       404:
+ *         description: No submissions found for this user.
+ */
 submissionRouter.get(
   "/get-problem-submissions-count/:problemId",
   getSubmissionCountForProblemValidator(),
