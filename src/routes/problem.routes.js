@@ -48,7 +48,7 @@ const problemRouter = Router();
  *             properties:
  *               title:
  *                 type: string
- *                 example: Check Even or Odd 1
+ *                 example: Check Even or Odd
  *               description:
  *                 type: string
  *                 example: Given an integer n, determine whether it is even or odd.
@@ -293,10 +293,13 @@ problemRouter.get(
  *                   properties:
  *                     input:
  *                       type: string
+ *                       example: "4 7"
  *                     output:
  *                       type: string
+ *                       example: "7"
  *                     explanation:
  *                       type: string
+ *                       example: "7 is greater than 4."
  *               constraints:
  *                 type: array
  *                 items:
@@ -309,26 +312,34 @@ problemRouter.get(
  *                   properties:
  *                     input:
  *                       type: string
+ *                       example: "15 30"
  *                     output:
  *                       type: string
+ *                       example: "30"
  *               codeSnippets:
  *                 type: object
  *                 properties:
  *                   JAVASCRIPT:
  *                     type: string
+ *                     example: "const fs = require('fs');\n\nfunction maxOfTwoNumbers(a, b) {\n    return a > b ? a : b;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst [a, b] = input.split(' ').map(Number);\nconsole.log(maxOfTwoNumbers(a, b));"
  *                   PYTHON:
  *                     type: string
+ *                     example: "def max_of_two_numbers(a, b):\n    return a if a > b else b\n\nimport sys\ninput_line = sys.stdin.read()\na, b = map(int, input_line.split())\nprint(max_of_two_numbers(a, b))"
  *                   JAVA:
  *                     type: string
+ *                     example: "import java.util.Scanner;\n\npublic class Main {\n    public static int maxOfTwoNumbers(int a, int b) {\n        return (a > b) ? a : b;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int a = sc.nextInt();\n        int b = sc.nextInt();\n        System.out.println(maxOfTwoNumbers(a, b));\n    }\n}"
  *               referenceSolutions:
  *                 type: object
  *                 properties:
  *                   JAVASCRIPT:
  *                     type: string
+ *                     example: "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst [a, b] = input.split(' ').map(Number);\nconsole.log(a > b ? a : b);"
  *                   PYTHON:
  *                     type: string
+ *                     example: "import sys\ninput_line = sys.stdin.read()\na, b = map(int, input_line.split())\nprint(a if a > b else b)"
  *                   JAVA:
  *                     type: string
+ *                     example: "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int a = sc.nextInt();\n        int b = sc.nextInt();\n        System.out.println(a > b ? a : b);\n    }\n}"
  *     responses:
  *       200:
  *         description: Problem updated successfully.
@@ -339,7 +350,6 @@ problemRouter.get(
  *       403:
  *         description: Forbidden.
  */
-
 problemRouter.put(
   "/update-problem/:id",
   updateProblemByIdValidator(),
